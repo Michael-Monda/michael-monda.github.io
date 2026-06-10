@@ -35,7 +35,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 1.2rem 5vw;
-      background: rgba(26,31,46,0.85);
+      background: rgba(13,31,15,0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -100,7 +100,8 @@
     .btn-outline:hover { border-color: var(--bleached); }
 
     /* ── SECTIONS ── */
-    section { padding: 6rem 5vw; }
+    section { padding: 6rem 5vw; background: var(--bg2); }
+    section#hero { background: var(--bg); }
     section + section { border-top: 1px solid var(--border); }
 
     .section-label {
@@ -150,7 +151,7 @@
       gap: 1.5rem; margin-top: 1rem;
     }
     .card {
-      background: var(--bg2);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 1.8rem;
@@ -184,7 +185,7 @@
     .pub-item {
       display: flex; gap: 1.5rem; align-items: flex-start;
       padding: 1.4rem 1.6rem;
-      background: var(--bg2);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
       transition: border-color 0.2s;
