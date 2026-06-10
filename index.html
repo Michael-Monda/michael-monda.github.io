@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michael — Materials Scientist & Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #1A1F2E;
+      --bg2:       #222840;
+      --surface:   #2A3050;
+      --offwhite:  #F0F2F5;
+      --muted:     #8B93AD;
+      --blue:      #4A90D9;
+      --amber:     #E8A830;
+      --border:    rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--offwhite);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 5vw;
+      background: rgba(26,31,46,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600; font-size: 1rem;
+      color: var(--offwhite); letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--offwhite); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 0 5vw;
+      position: relative; overflow: hidden;
+    }
+    #lattice-canvas {
+      position: absolute; inset: 0;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 800px; }
+    .hero-eyebrow {
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 1.2rem;
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700; line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    h1 span { color: var(--blue); }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted);
+      max-width: 560px; margin-bottom: 2.5rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 0.75rem 1.6rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      border-radius: 6px; text-decoration: none;
+      transition: transform 0.15s, opacity 0.15s;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-outline {
+      background: transparent; color: var(--offwhite);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--muted); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 5vw; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 2.5rem;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 600; line-height: 1.15;
+      letter-spacing: -0.01em; margin-bottom: 1.5rem;
+    }
+    p { color: var(--muted); max-width: 680px; margin-bottom: 1rem; }
+
+    /* ── ABOUT ── */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+      margin-top: 1rem;
+    }
+    .about-text p { max-width: 100%; }
+    .about-skills { display: flex; flex-direction: column; gap: 1rem; }
+    .skill-item { display: flex; flex-direction: column; gap: 0.4rem; }
+    .skill-label {
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.06em; color: var(--offwhite);
+    }
+    .skill-bar {
+      height: 3px; background: var(--surface);
+      border-radius: 2px; overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%; border-radius: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--amber));
+      transform-origin: left;
+      animation: fillBar 1.2s ease forwards;
+      transform: scaleX(0);
+    }
+    @keyframes fillBar { to { transform: scaleX(1); } }
+
+    /* ── RESEARCH / PROJECTS ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 1rem;
+    }
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: var(--blue); transform: translateY(-3px); }
+    .card-tag {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 0.8rem;
+    }
+    .card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--offwhite); margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+    .card p {
+      font-size: 0.875rem; margin-bottom: 1.2rem; max-width: 100%;
+    }
+    .card-link {
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--blue); text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .card-link:hover { text-decoration: underline; }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list { list-style: none; margin-top: 1rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .pub-item {
+      display: flex; gap: 1.5rem; align-items: flex-start;
+      padding: 1.4rem 1.6rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+    .pub-item:hover { border-color: var(--blue); }
+    .pub-year {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--amber); min-width: 40px; padding-top: 2px;
+    }
+    .pub-body {}
+    .pub-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem; font-weight: 500;
+      color: var(--offwhite); margin-bottom: 0.25rem;
+    }
+    .pub-meta { font-size: 0.8rem; color: var(--muted); }
+    .pub-meta a { color: var(--blue); text-decoration: none; }
+    .pub-meta a:hover { text-decoration: underline; }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+    #contact h2 { margin: 0 auto 1rem; }
+    #contact p { margin: 0 auto 2.5rem; text-align: center; }
+    .contact-links {
+      display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 5vw;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer p { font-size: 0.8rem; color: var(--muted); margin: 0; max-width: 100%; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nav-links { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .skill-fill { animation: none; transform: scaleX(1); }
+      .card, .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">Michael</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <canvas id="lattice-canvas"></canvas>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Materials Science · Hydrogen Storage · Startup Founder</p>
+      <h1>Engineering<br/>what <span>atoms</span> do<br/>at scale.</h1>
+      <p class="hero-sub">
+        Graduate researcher at WPI and Co-Founder of Phoebus American Energy Systems —
+        building the next generation of solid-state hydrogen storage for industrial decarbonization.
+      </p>
+      <div class="hero-ctas">
+        <a href="#research" class="btn btn-primary">View Research</a>
+        <a href="https://github.com/YOUR_GITHUB" class="btn btn-outline" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">Background</p>
+    <h2>Who I am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a materials scientist and engineer pursuing concurrent degrees in Materials Science &amp; Engineering (M.S.) and Robotics Engineering (B.S.) at Worcester Polytechnic Institute. My research centers on hydrogen storage materials — specifically metal-alloy systems — with hands-on expertise in advanced characterization techniques.
+        </p>
+        <p>
+          Outside the lab, I'm Co-Founder &amp; CEO of Phoebus American Energy Systems, a pre-seed startup developing a proprietary metal-alloy sponge for solid-state hydrogen storage targeting industrial steel producers. My work has been recognized by the National Academy of Inventors.
+        </p>
+        <p>
+          I'm drawn to problems where material behavior at the atomic scale determines outcomes at the industrial scale — and to the organizational challenges of getting new materials from lab bench to commercial deployment.
+        </p>
+      </div>
+      <div class="about-skills">
+        <p class="section-label" style="margin-bottom:1.5rem;">Characterization &amp; Methods</p>
+        <div class="skill-item">
+          <span class="skill-label">X-Ray Diffraction (XRD)</span>
+          <div class="skill-bar"><div class="skill-fill" style="--w:0.95; animation-delay:0.1s; width:95%;"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-label">Scanning Electron Microscopy (SEM)</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%; animation-delay:0.2s;"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-label">Transmission Electron Microscopy (TEM)</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%; animation-delay:0.3s;"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-label">Energy Dispersive Spectroscopy (EDS)</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%; animation-delay:0.4s;"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-label">Hydrogen Storage Systems</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:92%; animation-delay:0.5s;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH / PROJECTS -->
+  <section id="research">
+    <p class="section-label">Work</p>
+    <h2>Research &amp; Projects</h2>
+    <div class="card-grid">
+
+      <div class="card">
+        <span class="card-tag">Startup · Energy</span>
+        <h3>Phoebus American Energy Systems</h3>
+        <p>Co-founded pre-seed startup developing a proprietary metal-alloy sponge for solid-state hydrogen storage. Provisional patent held. Pilot partnership with PowerPlay Energy Group; DOE and WPI research partnerships active.</p>
+        <a href="https://YOUR_PHOEBUS_LINK" class="card-link">Learn more →</a>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">Research · WPI</span>
+        <h3>Metal Hydride Hydrogen Storage Materials</h3>
+        <p>Lead research on intermetallic alloy systems for solid-state hydrogen storage at WPI. Characterization via XRD, SEM/TEM/EDS. Recognized by the National Academy of Inventors.</p>
+        <a href="https://github.com/YOUR_GITHUB" class="card-link">View on GitHub →</a>
+      </div>
+
+      <!-- Add more project cards here -->
+      <div class="card" style="border-style: dashed; opacity: 0.5;">
+        <span class="card-tag">Coming soon</span>
+        <h3>Add your next project</h3>
+        <p>Duplicate this card block in the HTML and fill in your details.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS & PATENTS -->
+  <section id="publications">
+    <p class="section-label">Publications &amp; IP</p>
+    <h2>Papers &amp; Patents</h2>
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <span class="pub-year">2024</span>
+        <div class="pub-body">
+          <p class="pub-title">Provisional Patent — Solid-State Metal Alloy Hydrogen Storage</p>
+          <p class="pub-meta">U.S. Provisional Patent Application No. 63/863,916 · Phoebus American Energy Systems</p>
+        </div>
+      </li>
+
+      <!-- Add papers below — copy/paste this block -->
+      <li class="pub-item">
+        <span class="pub-year">20XX</span>
+        <div class="pub-body">
+          <p class="pub-title">Your Paper Title Here</p>
+          <p class="pub-meta">
+            Journal / Conference Name · 
+            <a href="https://doi.org/YOUR_DOI" target="_blank" rel="noopener">doi:10.xxxx/xxxxx ↗</a>
+          </p>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Get in touch</p>
+    <h2>Let's connect.</h2>
+    <p>Open to research collaborations, industry roles, and conversations about hydrogen energy and advanced materials.</p>
+    <div class="contact-links">
+      <a href="mailto:YOUR_EMAIL@email.com" class="btn btn-primary">Email me</a>
+      <a href="https://linkedin.com/in/YOUR_LINKEDIN" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://github.com/YOUR_GITHUB" class="btn btn-outline" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Michael. Built with plain HTML — hosted on GitHub Pages.</p>
+    <p><a href="#hero" style="color:var(--muted); text-decoration:none;">Back to top ↑</a></p>
+  </footer>
+
+  <!-- LATTICE ANIMATION -->
+  <script>
+    (function () {
+      const canvas = document.getElementById('lattice-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, nodes = [], raf;
+      const N = 40, R = 120;
+
+      function resize() {
+        W = canvas.width = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+      }
+
+      function initNodes() {
+        nodes = Array.from({ length: N }, () => ({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        // update
+        for (const n of nodes) {
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+        }
+        // edges
+        ctx.strokeStyle = '#4A90D9';
+        ctx.lineWidth = 0.6;
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < R) {
+              ctx.globalAlpha = (1 - d / R) * 0.6;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+        // nodes
+        ctx.globalAlpha = 0.7;
+        for (const n of nodes) {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
+          ctx.fillStyle = '#E8A830';
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        raf = requestAnimationFrame(draw);
+      }
+
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (!mq.matches) {
+        window.addEventListener('resize', () => { resize(); initNodes(); });
+        resize(); initNodes(); draw();
+      }
+    })();
+  </script>
+
+</body>
+</html>
